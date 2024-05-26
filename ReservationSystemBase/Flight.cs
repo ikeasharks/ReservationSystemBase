@@ -20,7 +20,7 @@ namespace ReservationSystemBase
             this.Bookings = new HashSet<Booking>();
         }
     
-        public int FlightId { get; set; }
+        public string FlightId { get; set; }
         public string FromPlace { get; set; }
         public string ToPlace { get; set; }
         public Nullable<System.DateTime> LaunchTime { get; set; }

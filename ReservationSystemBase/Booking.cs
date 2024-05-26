@@ -14,9 +14,10 @@ namespace ReservationSystemBase
     
     public partial class Booking
     {
-        public string Email { get; set; }
-        public Nullable<int> FlightNumber { get; set; }
-        public Nullable<int> NumOfFlights { get; set; }
+        public int BookingId { get; set; }
+        public string FlightNumber { get; set; }
+        public string NumOfTickets { get; set; }
+        public Nullable<int> ProfileId { get; set; }
     
         public virtual Flight Flight { get; set; }
         public virtual Profile Profile { get; set; }

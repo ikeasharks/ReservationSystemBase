@@ -45,7 +45,7 @@ namespace ReservationSystemBase
 
         private void profileButt_Click(object sender, RoutedEventArgs e)
         {
-            Profile prof = new Profile();
+            Profiles prof = new Profiles();
             frame.NavigationService.Navigate(prof);
 
         }

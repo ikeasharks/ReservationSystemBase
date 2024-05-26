@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -13,41 +14,38 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace ReservationSystemBase
 {
     /// <summary>
     /// Interaction logic for Profile.xaml
     /// </summary>
-    public partial class Profile : Page
+    public partial class Profiles : Page
     {
-        MainWindow mainWindow = new MainWindow();
-        TESTEntities db = new TESTEntities();
-        public Profile()
+        TESTEntities obj = new TESTEntities();
+        //MainWindow mainWindow = new MainWindow();
+        MainWindow.UserInfo userInfo = new MainWindow.UserInfo();
+        
+        public Profiles()
         {
+
+            InitializeComponent();
             
 
-            PersonalInfo _pers = new PersonalInfo
-            {
-                FName = QueryTaker("SELECT FName FROM Profile"),
-                LName = QueryTaker("SELECT LName FROM Profile"),
-                Email = QueryTaker("SELECT Email FROM Profile"),
-                Passport_Num = QueryTaker("SELECT Passport_Num FROM Profile"),
-                Address = QueryTaker("SELECT Address FROM Profile"),
-                creditCard = QueryTaker("SELECT CreditCard FROM Profile")
-            };
-            InitializeComponent();
-            myStack.DataContext = _pers;
-            //myStack.DataContext = db.Profiles.Select(u => u.IdOfUsers == db.Users.Select(o => o.id));
-
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+ 
+            
 
         }
+
         public static string QueryTaker(string query)
         {
             SqlConnection sqlConnection = new SqlConnection("server = DESKTOP-JJNLF5N\\SQLEXPRESS; Trusted_Connection = Yes; DataBase = TEST;");// подключаемся к базе данных
             sqlConnection.Open();// открываем базу данных
-            string strQuery = query;
-            SqlCommand sqlCommand = new SqlCommand(strQuery, sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
             string testString = sqlCommand.ExecuteScalar().ToString();
             sqlConnection.Close();
             return testString;
@@ -55,14 +53,26 @@ namespace ReservationSystemBase
 
         private void updButt_click(object sender, RoutedEventArgs e)
         {
+            Profile profileInfo = new Profile
+            {
+                FName = FirstNBox.Text,
+                LName = LastNBox.Text,
+                Email = EmailBox.Text,
+                Passport_Num = PassNum.Text,
+                Address = AddresBox.Text,
+                CreditCard = CreditBox.Text,
+            };
+            obj.Profiles.Add(profileInfo);
+            obj.SaveChanges();
 
-            mainWindow.Select($"INSERT INTO [dbo].[Profile] (Email, Passport_Num, Address, FName, LName, CreditCard) VALUES ('{EmailBox.Text}', '{NumberBox.Text}', '{AddresBox.Text}', '{FirstNBox.Text}', '{LastNBox.Text}', '{CreditBox.Text}')");
+
+            //mainWindow.Select($"INSERT INTO [dbo].[Profile] (Email, Passport_Num, Address, FName, LName, CreditCard) VALUES ('{EmailBox.Text}', '{NumberBox.Text}', '{AddresBox.Text}', '{FirstNBox.Text}', '{LastNBox.Text}', '{CreditBox.Text}')");
         }
 
         private void resButt_click(object sender, RoutedEventArgs e)
         {
             EmailBox.Text = "";
-            NumberBox.Text = "";
+            PassNum.Text = "";
             AddresBox.Text = "";
             FirstNBox.Text = "";
             LastNBox.Text = "";

@@ -15,21 +15,9 @@ namespace ReservationSystemBase
     
     public partial class TESTEntities : DbContext
     {
-
-        private static TESTEntities _context;
-
         public TESTEntities()
             : base("name=TESTEntities")
         {
-        }
-
-        public static TESTEntities GetContext()
-        {
-            if(_context == null)
-            {
-               _context = new TESTEntities();
-            }
-            return _context;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,10 +25,10 @@ namespace ReservationSystemBase
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Booking> Bookings { get; set; }
     }
 }

@@ -14,20 +14,20 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Height="409" Width="526" x:Name="dataGrid" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <DataGrid MinHeight="400" MaxHeight="1000"  MinWidth="500" MaxWidth="1000" x:Name="dataGrid" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock Text="From:" Margin="5" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Откуда:" Margin="5" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <ComboBox x:Name="comboBox1" Grid.Column="1" VerticalAlignment="Top" Width="140" Margin="10"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock Text="To:" Margin="5" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Куда:" Margin="5" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <ComboBox x:Name="comboBox2" Grid.Column="1" VerticalAlignment="Top" Width="140" Margin="10"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="10, 10">
-                <Button Content="Search" Width="100" Height="30" HorizontalAlignment="Center" Margin="5" Click="Search_Click"/>
-                <Button Content="Clear" Width="100" Height="30" HorizontalAlignment="Center" Margin="5" Click="Clear_Click"/>
+                <Button Content="Поиск" Width="100" Height="30" HorizontalAlignment="Center" Margin="5" Click="Search_Click"/>
+                <Button Content="Очистить" Width="100" Height="30" HorizontalAlignment="Center" Margin="5" Click="Clear_Click"/>
             </StackPanel>
         </StackPanel>
 

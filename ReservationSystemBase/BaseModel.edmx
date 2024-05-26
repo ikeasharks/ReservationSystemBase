@@ -5,21 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="TESTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Booking">
           <Key>
-            <PropertyRef Name="Email" />
+            <PropertyRef Name="BookingId" />
           </Key>
-          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="FlightNumber" Type="int" />
-          <Property Name="NumOfFlights" Type="int" />
+          <Property Name="BookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FlightNumber" Type="nchar" MaxLength="10" />
+          <Property Name="NumOfTickets" Type="nchar" MaxLength="10" />
+          <Property Name="ProfileId" Type="int" />
         </EntityType>
         <EntityType Name="Flights">
           <Key>
             <PropertyRef Name="FlightId" />
           </Key>
-          <Property Name="FlightId" Type="int" Nullable="false" />
+          <Property Name="FlightId" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="FromPlace" Type="nvarchar" MaxLength="50" />
           <Property Name="ToPlace" Type="nvarchar" MaxLength="50" />
           <Property Name="LaunchTime" Type="datetime" />
@@ -29,8 +28,9 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
         </EntityType>
         <EntityType Name="Profile">
           <Key>
-            <PropertyRef Name="Email" />
+            <PropertyRef Name="ProfileId" />
           </Key>
+          <Property Name="ProfileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Passport_Num" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
@@ -70,14 +70,14 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Booking_Profile">
-          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
-          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profile">
-              <PropertyRef Name="Email" />
+              <PropertyRef Name="ProfileId" />
             </Principal>
             <Dependent Role="Booking">
-              <PropertyRef Name="Email" />
+              <PropertyRef Name="ProfileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -94,17 +94,11 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TESTModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Booking" EntityType="Self.Booking" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Booking].[Email] AS [Email], 
-    [Booking].[FlightNumber] AS [FlightNumber], 
-    [Booking].[NumOfFlights] AS [NumOfFlights]
-    FROM [dbo].[Booking] AS [Booking]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Booking_Flights" Association="Self.FK_Booking_Flights">
             <End Role="Flights" EntitySet="Flights" />
             <End Role="Booking" EntitySet="Booking" />
@@ -123,11 +117,22 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingId" />
+          </Key>
+          <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NumOfTickets" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ProfileId" Type="Int32" />
+          <NavigationProperty Name="Flight" Relationship="Self.FK_Booking_Flights" FromRole="Booking" ToRole="Flights" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_Booking_Profile" FromRole="Booking" ToRole="Profile" />
+        </EntityType>
         <EntityType Name="Flight">
           <Key>
             <PropertyRef Name="FlightId" />
           </Key>
-          <Property Name="FlightId" Type="Int32" Nullable="false" />
+          <Property Name="FlightId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="FromPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LaunchTime" Type="DateTime" Precision="3" />
@@ -138,8 +143,9 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
         </EntityType>
         <EntityType Name="Profile">
           <Key>
-            <PropertyRef Name="Email" />
+            <PropertyRef Name="ProfileId" />
           </Key>
+          <Property Name="ProfileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Passport_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -147,7 +153,7 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreditCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdOfUsers" Type="Int32" />
-          <NavigationProperty Name="Booking" Relationship="Self.FK_Booking_Profile" FromRole="Profile" ToRole="Booking" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Profile" FromRole="Profile" ToRole="Booking" />
           <NavigationProperty Name="User" Relationship="Self.FK_Profile_Users" FromRole="Profile" ToRole="Users" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -169,16 +175,6 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Profiles" Relationship="Self.FK_Profile_Users" FromRole="Users" ToRole="Profile" />
         </EntityType>
-        <EntityType Name="Booking">
-          <Key>
-            <PropertyRef Name="Email" />
-          </Key>
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FlightNumber" Type="Int32" />
-          <Property Name="NumOfFlights" Type="Int32" />
-          <NavigationProperty Name="Flight" Relationship="Self.FK_Booking_Flights" FromRole="Booking" ToRole="Flights" />
-          <NavigationProperty Name="Profile" Relationship="Self.FK_Booking_Profile" FromRole="Booking" ToRole="Profile" />
-        </EntityType>
         <Association Name="FK_Booking_Flights">
           <End Role="Flights" Type="Self.Flight" Multiplicity="0..1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -192,14 +188,14 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Booking_Profile">
-          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
-          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profile">
-              <PropertyRef Name="Email" />
+              <PropertyRef Name="ProfileId" />
             </Principal>
             <Dependent Role="Booking">
-              <PropertyRef Name="Email" />
+              <PropertyRef Name="ProfileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,11 +212,11 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TESTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
           <EntitySet Name="Flights" EntityType="Self.Flight" />
           <EntitySet Name="Profiles" EntityType="Self.Profile" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Bookings" EntityType="Self.Booking" />
           <AssociationSet Name="FK_Booking_Flights" Association="Self.FK_Booking_Flights">
             <End Role="Flights" EntitySet="Flights" />
             <End Role="Booking" EntitySet="Bookings" />
@@ -240,6 +236,16 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TESTModelStoreContainer" CdmEntityContainer="TESTEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="TESTModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+                <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
+                <ScalarProperty Name="NumOfTickets" ColumnName="NumOfTickets" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Flights">
             <EntityTypeMapping TypeName="TESTModel.Flight">
               <MappingFragment StoreEntitySet="Flights">
@@ -256,6 +262,7 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="TESTModel.Profile">
               <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Passport_Num" ColumnName="Passport_Num" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -283,15 +290,6 @@ warning 6002: The table/view 'TEST.dbo.Booking' does not have a primary key defi
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="password" ColumnName="password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Bookings">
-            <EntityTypeMapping TypeName="TESTModel.Booking">
-              <MappingFragment StoreEntitySet="Booking">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FlightNumber" ColumnName="FlightNumber" />
-                <ScalarProperty Name="NumOfFlights" ColumnName="NumOfFlights" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

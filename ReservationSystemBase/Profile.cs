@@ -14,6 +14,13 @@ namespace ReservationSystemBase
     
     public partial class Profile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Profile()
+        {
+            this.Bookings = new HashSet<Booking>();
+        }
+    
+        public int ProfileId { get; set; }
         public string Email { get; set; }
         public string Passport_Num { get; set; }
         public string Address { get; set; }
@@ -22,7 +29,8 @@ namespace ReservationSystemBase
         public string CreditCard { get; set; }
         public Nullable<int> IdOfUsers { get; set; }
     
-        public virtual Booking Booking { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings { get; set; }
         public virtual User User { get; set; }
     }
 }

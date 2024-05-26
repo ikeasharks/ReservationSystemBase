@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d1df688a0fc842b49091869fdb086a09" Name="Diagram1">
-        <EntityTypeShape EntityType="TESTModel.Flight" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="d6f9b47cb0bf4a9cad2ecd35b3a8811e" Name="Diagram1">
+        <EntityTypeShape EntityType="TESTModel.Booking" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TESTModel.Flight" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TESTModel.Profile" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TESTModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TESTModel.User" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TESTModel.Booking" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="TESTModel.FK_Booking_Flights" ManuallyRouted="false" />
         <AssociationConnector Association="TESTModel.FK_Booking_Profile" ManuallyRouted="false" />
         <AssociationConnector Association="TESTModel.FK_Profile_Users" ManuallyRouted="false" />

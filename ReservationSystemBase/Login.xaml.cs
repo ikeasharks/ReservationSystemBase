@@ -31,13 +31,6 @@ namespace ReservationSystemBase
             
         }
 
-        private void regin_Click(object sender, RoutedEventArgs e)
-        {
-
-
-
-        }
-
         private void enter_Click(object sender, RoutedEventArgs e)
         {
 
@@ -46,7 +39,6 @@ namespace ReservationSystemBase
             {
                 if (password.Password.Length > 0) // проверяем введён ли пароль
                 {// ищем в базе данных пользователя с такими данными         
-                    //DataTable dt_user = mainWindow.Select("SELECT * FROM [dbo].[Users] WHERE [login] = '" + textBox_login.Text + "'AND [password] = '" + password.Password + "'");
                     if (obj.Users.Any(u => u.login == textBox_login.Text && u.password == password.Password))
                      {
                         MessageBox.Show("Пользователь авторизовался"); //говорим, что авторизовался

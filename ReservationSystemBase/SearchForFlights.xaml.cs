@@ -50,22 +50,8 @@ namespace ReservationSystemBase
 
         }
 
-        public static string QueryTaker(string query, SqlConnection conn)
-        {
-            conn.Open();
-            SqlCommand sqlCommand = new SqlCommand(query, conn);
-            string testString = sqlCommand.ExecuteScalar().ToString();
-            conn.Close();
-            return testString;
-        }
-
-
-
-
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-
-
 
             sqlConnection.Open();
             string dTable = $"SELECT FlightId, FromPlace, ToPlace, LaunchTime, NumberOfSeats, Price, Status FROM Flights WHERE FromPlace IN ('{comboBox1.Text}') AND ToPlace IN ('{comboBox2.Text}')";
@@ -73,14 +59,22 @@ namespace ReservationSystemBase
             SqlDataAdapter sda = new SqlDataAdapter(comm);
             DataTable dt = new DataTable("Flights");
             sda.Fill(dt);
+
             dataGrid.ItemsSource = dt.DefaultView;
+            dataGrid.Columns[0].Header = "Идентификатор";
+            dataGrid.Columns[1].Header = "Откуда";
+            dataGrid.Columns[2].Header = "Куда";
+            dataGrid.Columns[3].Header = "Время отправления";
+            dataGrid.Columns[4].Header = "Кол-во мест";
+            dataGrid.Columns[5].Header = "Цена";
+            dataGrid.Columns[6].Header = "Статус";
             sqlConnection.Close();
 
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-
+            dataGrid.ItemsSource = null;
         }
     }
 }

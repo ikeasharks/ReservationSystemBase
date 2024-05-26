@@ -15,32 +15,14 @@
         <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" MinWidth="190" Background="AntiqueWhite">
             <StackPanel x:Name="stack" x:FieldModifier="public" Margin="5">
                 <TextBlock x:Name="tBlock" x:FieldModifier="public" Margin="5" Padding="10"/>
-                <Button x:Name="profile" Content="profile" Click="profileButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
-                <Button x:Name="searchForFlight" Content="search" Click="searchButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
-                <Button x:Name="booking" Content="booking" Click="bookButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
-                <Button x:Name="manageBooking" Content="manageBooking" Click="manageButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
+                <Button x:Name="profile" Content="Профиль" Click="profileButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
+                <Button x:Name="searchForFlight" Content="Поиск билетов" Click="searchButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
+                <Button x:Name="booking" Content="Бронирование" Click="bookButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
+                <Button x:Name="manageBooking" Content="История бронирований" Click="manageButt_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="150" Margin="5"/>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="AntiqueWhite">
-            <StackPanel Orientation="Horizontal" >
-                <TextBlock Text="Reports :" Margin="5"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button MaxHeight="30" MaxWidth="30" MinWidth="30" HorizontalAlignment="Left" Margin="5" Background="Black" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image  Stretch="Fill" />
-                        <TextBlock/>
-                    </StackPanel>
-                </Button>
-                <Button MaxHeight="30" MaxWidth="30" MinWidth="30" HorizontalAlignment="Left" Margin="5" Background="Black">
-                    <StackPanel Orientation="Horizontal">
-                        <Image  Stretch="Fill"/>
-                        <TextBlock/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </StackPanel>
+        
 
 
     </Grid>

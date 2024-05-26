@@ -14,10 +14,10 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <Label FontSize="20" FontWeight="Bold" Content="Список полетов"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="500" MinHeight="250" MaxWidth="900" MinWidth="600"/>
+        <DataGrid x:Name="dataGrid" VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="500" MinHeight="250" MaxWidth="900" MinWidth="600" />
         <WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Center">
-            <Button Content="Обновить" Margin="25, 10" MinWidth="50" Width="100" MaxWidth="100" MaxHeight="30" MinHeight="10"/>
-            <Button Content="Удалить" Margin="25, 10" MinWidth="50" Width="100" MaxWidth="100" MaxHeight="30" MinHeight="10"/>
+            <Button Click="updateButt_click" Content="Обновить" Margin="25, 10" MinWidth="50" Width="100" MaxWidth="100" MaxHeight="30" MinHeight="10"/>
+            <Button Click="deleteButt_click" Content="Удалить" Margin="25, 10" MinWidth="50" Width="100" MaxWidth="100" MaxHeight="30" MinHeight="10"/>
         </WrapPanel>
     </Grid>
 </Page>

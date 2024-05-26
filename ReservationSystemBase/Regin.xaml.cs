@@ -89,7 +89,6 @@ namespace ReservationSystemBase
 
                 if (password.Password == password_Copy.Password) // проверка на совпадение паролей
                 {
-                    //DataTable dt_user = mainWindow.Select("SELECT * FROM [dbo].[Users] WHERE [login] = '" + textBox_login.Text + "'AND [password] = '" + password.Password + "'");
                     if (obj.Users.Any(u => u.login == textBox_login.Text && u.password == password.Password)) // если такая запись существует
                     {
                         MessageBox.Show("Пользователь уже зарегестрирован"); //говорим, что пользователь уже зарегестрирован
@@ -97,7 +96,6 @@ namespace ReservationSystemBase
                     }
                     else
                     {
-                        //mainWindow.Select($"INSERT INTO [dbo].[Users] (login, password) VALUES ('{textBox_login.Text}', '{password.Password}')"); //добавляем в базу
                         User user = new User
                         {
                             login = textBox_login.Text,
@@ -105,7 +103,6 @@ namespace ReservationSystemBase
                         };
                         obj.Users.Add(user);
                         obj.SaveChanges();
-
 
                         MessageBox.Show("С успешной регистрацией");
 
@@ -116,8 +113,6 @@ namespace ReservationSystemBase
                 else MessageBox.Show("Пароли не совпадают");
             }
             else MessageBox.Show("Пароль должен быть больше 6 символов");
-
-
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
